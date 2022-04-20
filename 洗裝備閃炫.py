@@ -107,7 +107,7 @@ def getA(state_percent, kind, only_appear):
     if (line < equip_A_STR[kind]):
         if min(state_percent) <9:
             state_percent[state_percent.index(min(state_percent))] = 9
-    elif (line > equip_A_all[kind]):
+    elif (line < equip_A_all[kind]):
         if min(state_percent) <6.1:
             state_percent[state_percent.index(min(state_percent))] = 6.1 
 
@@ -130,7 +130,7 @@ for equip_i in range(0,7):
     third_1all = 0
     third_2all = 0
     
-    for exp in range(0,int(1e7)):
+    for exp in range(0,int(1e8)):
         CD = [0,0]
         only_appear[0] = 0
         STR_percent = [0,0,0]
