@@ -3,33 +3,42 @@ import numpy as np
 
 class RESULTS:
     def __init__(self):
-        self.WeaponAttack_BOSSDamage = np.zeros((10, 9), 'int64')
+        self.WeaponAttack_BOSSDamage = np.zeros((10, 16), 'int64')
         self.ATK_table = [0, 9, 12, 18, 21, 24, 27, 30, 33, 36] #(共10種)
-        self.BOSS_table = [0, 30, 35, 40, 60, 65, 70, 75, 80] #(共9種)
+        self.BOSS_table = [0, 30, 35, 40, 60, 65, 70, 75, 80, 90, 95, 100, 105, 110, 115, 120] #(共16種)
     
     def add_equip(self, ATK, BOSS):
         ATK = sorted(ATK, reverse = True)
         BOSS = sorted(BOSS, reverse = True)
         
+        target_achieve = np.zeros((10, 16), 'int64')
+        
         #choose 0B
         ATK_result = sum(ATK)
         BOSS_result = 0
-        self.WeaponAttack_BOSSDamage[0:self.ATK_table.index(ATK_result)+1, 0:self.BOSS_table.index(BOSS_result)+1] += 1
+        target_achieve[0:self.ATK_table.index(ATK_result)+1, 0:self.BOSS_table.index(BOSS_result)+1] = 1
         
         #choose 1B
         ATK_result = ATK[0]+ATK[1]
         BOSS_result = BOSS[0]
-        self.WeaponAttack_BOSSDamage[0:self.ATK_table.index(ATK_result)+1, 1:self.BOSS_table.index(BOSS_result)+1] += 1
+        target_achieve[0:self.ATK_table.index(ATK_result)+1, 0:self.BOSS_table.index(BOSS_result)+1] = 1
         
         #choose 2B
         ATK_result = ATK[0]
+        BOSS_result = BOSS[0]+BOSS[1]
+        target_achieve[0:self.ATK_table.index(ATK_result)+1, 0:self.BOSS_table.index(BOSS_result)+1] = 1
+        
+        #choose 3B
+        ATK_result = 0
         BOSS_result = sum(BOSS)
-        self.WeaponAttack_BOSSDamage[0:self.ATK_table.index(ATK_result)+1, 4:self.BOSS_table.index(BOSS_result)+1] += 1
+        target_achieve[0:self.ATK_table.index(ATK_result)+1, 0:self.BOSS_table.index(BOSS_result)+1] = 1
+        
+        self.WeaponAttack_BOSSDamage += target_achieve
         
     def output(self):
         print('\n武器')
         for i in range(0,10):
-            for j in range(0,9):
+            for j in range(0,16):
                 print(self.WeaponAttack_BOSSDamage[i, j], end = '\t')
             print("")
         

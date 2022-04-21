@@ -8,7 +8,7 @@ Prob = Prob_weapon.Prob(cube_kind)
 
 results = Prob_weapon.RESULTS()
 for exp in range(0,int(1e8)):
-    BOSS = [0,0]
+    BOSS = [0,0,0]
     ATK = [0,0,0] 
     only_appear = [0,0] # B傷、無視
     # 第1排
