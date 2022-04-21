@@ -22,84 +22,84 @@ class RESULTS:
     def add_equip(self, STR_percent, equip_i, CD, only_appear):
         if equip_i == 0: # 帽子
             if CD[1] >= 3:
-                self.CD6head = self.CD6head+1
+                self.CD6head += 1
             elif CD[1] == 2:
                 if CD[0] >= 1:
-                    self.CD5head = self.CD5head+1
+                    self.CD5head += 1
                 elif max(STR_percent)==12:
-                    self.CD4head_12 = self.CD4head_12+1
+                    self.CD4head_12 += 1
                 elif max(STR_percent)==9.2:
-                    self.CD4head_9all = self.CD4head_9all+1
+                    self.CD4head_9all += 1
                 elif max(STR_percent)==9:
-                    self.CD4head_9 = self.CD4head_9+1
+                    self.CD4head_9 += 1
                 elif max(STR_percent)==6.1:
-                    self.CD4head_6all = self.CD4head_6all+1
+                    self.CD4head_6all += 1
                 else:
-                    self.CD4head = self.CD4head+1
+                    self.CD4head += 1
             elif sum(STR_percent) == 36:
-                self.top = self.top+1
+                self.top += 1
             elif sum(STR_percent) == 33.2:
-                self.second_all = self.second_all+1
+                self.second_all += 1
             elif sum(STR_percent) == 33:
-                self.second = self.second+1
+                self.second += 1
             elif sum(STR_percent) == 30.1:
-                self.third_2top = self.third_2top+1
+                self.third_2top += 1
             elif sum(STR_percent) == 30:
-                self.third = self.third+1
+                self.third += 1
             elif sum(STR_percent) == 30.2:
-                self.third_1all = self.third_1all+1
+                self.third_1all += 1
             elif sum(STR_percent) == 30.4:
-                self.third_2all = self.third_2all+1
+                self.third_2all += 1
             
         elif equip_i == 3: # 手套
             if sum(STR_percent) == 300:
-                self.top = self.top+1
+                self.top += 1
             elif sum(STR_percent) == 212:
-                self.second = self.second+1
+                self.second += 1
             elif sum(STR_percent) == 209.2:
-                self.second_all = self.second_all+1
+                self.second_all += 1
             elif sum(STR_percent) == 209:
-                self.third_2top = self.third_2top+1
+                self.third_2top += 1
             elif sum(STR_percent) == 206.1:
-                self.third_1all = self.third_1all+1
+                self.third_1all += 1
             elif sum(STR_percent) == 200:
-                self.third = self.third+1
+                self.third += 1
             
         elif equip_i == 6: # 飾品
             if sum(STR_percent) == 36:
-                self.top = self.top+1
+                self.top += 1
             elif sum(STR_percent) == 33.2:
-                self.second_all = self.second_all+1
+                self.second_all += 1
             elif sum(STR_percent) == 33:
-                self.second = self.second+1
+                self.second += 1
             elif CD[1] + CD[0] > 2: #次頂>3(楓+掉)
-                self.meso_get_3row = self.meso_get_3row+1 #only_appear 1技能/1被擊中後無敵時間增加, 2被擊中時有一定機率無視傷害/2掉寶, 2被擊時以一定機率一定時間內無敵
+                self.meso_get_3row += 1 #only_appear 1技能/1被擊中後無敵時間增加, 2被擊中時有一定機率無視傷害/2掉寶, 2被擊時以一定機率一定時間內無敵
             elif sum(STR_percent) == 30.1:
-                self.third_2top = self.third_2top+1
+                self.third_2top += 1
             elif sum(STR_percent) == 30:
-                self.third = self.third+1
+                self.third += 1
             elif sum(STR_percent) == 30.2:
-                self.third_1all = self.third_1all+1
+                self.third_1all += 1
             elif sum(STR_percent) == 30.4:
-                self.third_2all = self.third_2all+1
+                self.third_2all += 1
             elif CD[1] + CD[0] == 2:
-                self.meso_get_2row = self.meso_get_2row+1
+                self.meso_get_2row += 1
                 
         else:
             if sum(STR_percent) == 36:
-                self.top = self.top+1
+                self.top += 1
             elif sum(STR_percent) == 33.2:
-                self.second_all = self.second_all+1
+                self.second_all += 1
             elif sum(STR_percent) == 33:
-                self.second = self.second+1
+                self.second += 1
             elif sum(STR_percent) == 30.1:
-                self.third_2top = self.third_2top+1
+                self.third_2top += 1
             elif sum(STR_percent) == 30:
-                self.third = self.third+1
+                self.third += 1
             elif sum(STR_percent) == 30.2:
-                self.third_1all = self.third_1all+1
+                self.third_1all += 1
             elif sum(STR_percent) == 30.4:
-                self.third_2all = self.third_2all+1
+                self.third_2all += 1
                 
     def output(self, equip_i):
         equip = ['帽', '衣,套服', '褲', '手', '鞋', '披風,腰帶,肩膀', '飾']
@@ -214,99 +214,100 @@ class Prob:
         cummulate = 0
         
         #決定機率倍率
-        multiplier = 1
+        multiplier = 0
         if only_appear[0]>=1:
             if kind == 0:
-                multiplier = multiplier/(1-self.skill_head_bless_S)
+                multiplier += self.skill_head_bless_S
             elif kind == 1:
-                multiplier = multiplier/(1-self.invincible_time_S)
+                multiplier += self.invincible_time_S
             elif kind == 3:
-                multiplier = multiplier/(1-self.skill_glove_speed_S)
+                multiplier += self.skill_glove_speed_S
             elif kind == 4:
-                multiplier = multiplier/(1-self.skill_shoe_order_S)
+                multiplier += self.skill_shoe_order_S
         if only_appear[1]>=2:
             if kind == 6:
-                multiplier = multiplier/(1-self.item_get_S)
+                multiplier += self.item_get_S
             else:
-                multiplier = multiplier/(1-self.ingore_damage_S[kind])
+                multiplier += self.ingore_damage_S[kind]
         if only_appear[2]>=2:
-            multiplier = multiplier/(1-self.invincible_prob_S)
+            multiplier += self.invincible_prob_S
+        multiplier = 1/(1-multiplier)
         
         #開始抽
-        cummulate = cummulate + self.equip_S_STR[kind] * multiplier
+        cummulate += self.equip_S_STR[kind] * multiplier
         if (line < cummulate):
             if min(state_percent) <12:
                 state_percent[state_percent.index(min(state_percent))] = 12
             return
         else:
-            cummulate = cummulate + self.equip_S_all[kind] * multiplier
+            cummulate += self.equip_S_all[kind] * multiplier
             
         if (line < cummulate):
             if min(state_percent) <9.2:
                 state_percent[state_percent.index(min(state_percent))] = 9.2
             return
         elif kind == 0:
-            cummulate = cummulate + self.equip_CD1 * multiplier
+            cummulate += self.equip_CD1 * multiplier
         elif kind == 3:
-            cummulate = cummulate + self.equip_critical * multiplier
+            cummulate += self.equip_critical * multiplier
         elif kind == 6:
-            cummulate = cummulate + self.meso_get * multiplier
+            cummulate += self.meso_get * multiplier
             
         if (line < cummulate):
             if kind == 0:
-                CD[0] = CD[0]+1
+                CD[0] += 1
                 return
             elif kind == 3:
                 if min(state_percent) <100:
                     state_percent[state_percent.index(min(state_percent))] = 100
                 return
-            elif kind == 6:
-                CD[0] = CD[0]+1
+            elif kind == 6: #楓/掉
+                CD[0] += 1
                 return    
         elif kind == 0:
-            cummulate = cummulate + self.equip_CD2 * multiplier
+            cummulate += self.equip_CD2 * multiplier
             
         if (line < cummulate):
             if kind == 0:
-                CD[1] = CD[1]+1
+                CD[1] += 1
                 return
                 
         #沒有洗到排數限制的抽完了  
         #第一種限制        
         if only_appear[0]<1:
             if kind == 0:
-                cummulate = cummulate + self.skill_head_bless_S * multiplier
+                cummulate += self.skill_head_bless_S * multiplier
             elif kind == 1:
-                cummulate = cummulate + self.invincible_time_S * multiplier
+                cummulate += self.invincible_time_S * multiplier
             elif kind == 3:
-                cummulate = cummulate + self.skill_glove_speed_S * multiplier
+                cummulate += self.skill_glove_speed_S * multiplier
             elif kind == 4:
-                cummulate = cummulate + self.skill_shoe_order_S * multiplier
+                cummulate += self.skill_shoe_order_S * multiplier
                 
         if (line < cummulate):
-            only_appear[0] = only_appear[0]+1
+            only_appear[0] += 1
             return
         
         #第二種限制
         if only_appear[1]<2:
             if kind == 6: #CD[0]用於飾品 = 楓幣
-                cummulate = cummulate + self.item_get_S * multiplier
+                cummulate += self.item_get_S * multiplier
             else:
-                cummulate = cummulate + self.ingore_damage_S[kind] * multiplier
+                cummulate += self.ingore_damage_S[kind] * multiplier
                 
         if (line < cummulate):
-            only_appear[1] = only_appear[1]+1
+            only_appear[1] += 1
             if kind == 6:
-                CD[1] = CD[1]+1
+                CD[1] += 1
             return
         
         #第三種限制
         if only_appear[2]<2:
             if kind == 1:
-                cummulate = cummulate + self.invincible_prob_S * multiplier
+                cummulate += self.invincible_prob_S * multiplier
                 
         if (line < cummulate):
-            only_appear[2] = only_appear[2]+1
+            only_appear[2] += 1
         
         
     def getA(self, state_percent, kind, only_appear): 
@@ -315,31 +316,32 @@ class Prob:
         cummulate = 0
         
         #決定機率倍率
-        multiplier = 1
+        multiplier = 0
         if only_appear[0]>=1:
             if kind == 0:
-                multiplier = multiplier/(1-self.skill_head_door_A)
+                multiplier += self.skill_head_door_A
             elif kind == 1:
-                multiplier = multiplier/(1-self.invincible_time_A)
+                multiplier += self.invincible_time_A
             elif kind == 2:
-                multiplier = multiplier/(1-self.skill_pant_fire_A)
+                multiplier += self.skill_pant_fire_A
             elif kind == 3:
-                multiplier = multiplier/(1-self.skill_glove_eye_A)
+                multiplier += self.skill_glove_eye_A
             elif kind == 4:
-                multiplier = multiplier/(1-self.skill_shoe_speed_A)
+                multiplier += self.skill_shoe_speed_A
         if only_appear[1]>=2:
-            multiplier = multiplier/(1-self.ingore_damage_A[kind])
+            multiplier += self.ingore_damage_A[kind]
         if only_appear[2]>=2:
-            multiplier = multiplier/(1-self.invincible_prob_A)
+            multiplier += self.invincible_prob_A
+        multiplier = 1/(1-multiplier)    
         
         #開始抽
-        cummulate = cummulate + self.equip_A_STR[kind] * multiplier
+        cummulate += self.equip_A_STR[kind] * multiplier
         if (line < cummulate):
             if min(state_percent) <9:
                 state_percent[state_percent.index(min(state_percent))] = 9
             return
         else:
-            cummulate = cummulate + self.equip_A_all[kind] * multiplier
+            cummulate += self.equip_A_all[kind] * multiplier
             
         if (line < cummulate):
             if min(state_percent) <6.1:
@@ -350,32 +352,32 @@ class Prob:
         #第一種限制        
         if only_appear[0]<1:
             if kind == 0:
-                cummulate = cummulate + self.skill_head_door_A * multiplier
+                cummulate += self.skill_head_door_A * multiplier
             elif kind == 1:
-                cummulate = cummulate + self.invincible_time_A * multiplier
+                cummulate += self.invincible_time_A * multiplier
             elif kind == 2:
-                cummulate = cummulate + self.skill_pant_fire_A * multiplier
+                cummulate += self.skill_pant_fire_A * multiplier
             elif kind == 3:
-                cummulate = cummulate + self.skill_glove_eye_A * multiplier
+                cummulate += self.skill_glove_eye_A * multiplier
             elif kind == 4:
-                cummulate = cummulate + self.skill_shoe_speed_A * multiplier
+                cummulate += self.skill_shoe_speed_A * multiplier
                 
         if (line < cummulate):
-            only_appear[0] = only_appear[0]+1
+            only_appear[0] += 1
             return
         
         #第二種限制
         if only_appear[1]<2:
-            cummulate = cummulate + self.ingore_damage_A[kind] * multiplier
+            cummulate += self.ingore_damage_A[kind] * multiplier
                 
         if (line < cummulate):
-            only_appear[1] = only_appear[1]+1
+            only_appear[1] += 1
             return
         
         #第三種限制
         if only_appear[2]<2:
             if kind == 1:
-                cummulate = cummulate + self.invincible_prob_A * multiplier
+                cummulate += self.invincible_prob_A * multiplier
                 
         if (line < cummulate):
             only_appear[2] = only_appear[2]+1
