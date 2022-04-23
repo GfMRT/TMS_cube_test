@@ -72,8 +72,6 @@ class RESULTS:
                 self.second_all += 1
             elif sum(STR_percent) == 33:
                 self.second += 1
-            elif CD[1] + CD[0] > 2: #次頂>3(楓+掉)
-                self.meso_get_3row += 1 #only_appear 1技能/1被擊中後無敵時間增加, 2被擊中時有一定機率無視傷害/2掉寶, 2被擊時以一定機率一定時間內無敵
             elif sum(STR_percent) == 30.1:
                 self.third_2top += 1
             elif sum(STR_percent) == 30:
@@ -81,7 +79,9 @@ class RESULTS:
             elif sum(STR_percent) == 30.2:
                 self.third_1all += 1
             elif sum(STR_percent) == 30.4:
-                self.third_2all += 1
+                self.third_2all += 1 
+            if CD[1] + CD[0] > 2: #次頂>3(楓+掉)
+                self.meso_get_3row += 1 
             elif CD[1] + CD[0] == 2:
                 self.meso_get_2row += 1
                 
@@ -143,9 +143,9 @@ class RESULTS:
             print("    三排楓掉: ", self.meso_get_3row)
 
 class Prob:
-    def __init__(self, cube): # 0/1/2 = 閃炫、鏡射、對等
-        if(cube == 0):
-            # 閃炫
+    def __init__(self, cube): # 0/1/2 = 閃炫、鏡射、對等、閃耀
+        if(cube == 0 or cube == 3):
+            # 閃炫閃耀機率一樣
             self.ingore_damage_A = [0.127, 0.1096, 0.1588, 0.1194, 0.127, 0.1356, 0] #2被擊中時有一定機率無視傷害
             self.equip_A_STR = [0.0794, 0.0685, 0.0794, 0.0746, 0.0794, 0.0847, 0.098]
             self.equip_A_all = [0.0635, 0.0548, 0.0635, 0.0597, 0.0635, 0.0678, 0.0784]
@@ -207,6 +207,7 @@ class Prob:
             self.skill_shoe_order_S = 0.0625
             self.item_get_S = 0.0588
             self.meso_get = 0.0588
+        
     
     def getS(self, state_percent, kind, CD, only_appear): 
         #only_appear 1技能/1被擊中後無敵時間增加, 2被擊中時有一定機率無視傷害/2掉寶, 2被擊時以一定機率一定時間內無敵
@@ -284,9 +285,9 @@ class Prob:
             elif kind == 4:
                 cummulate += self.skill_shoe_order_S * multiplier
                 
-        if (line < cummulate):
-            only_appear[0] += 1
-            return
+            if (line < cummulate):
+                only_appear[0] += 1
+                return
         
         #第二種限制
         if only_appear[1]<2:
@@ -295,19 +296,19 @@ class Prob:
             else:
                 cummulate += self.ingore_damage_S[kind] * multiplier
                 
-        if (line < cummulate):
-            only_appear[1] += 1
-            if kind == 6:
-                CD[1] += 1
-            return
+            if (line < cummulate):
+                only_appear[1] += 1
+                if kind == 6:
+                    CD[1] += 1
+                return
         
         #第三種限制
         if only_appear[2]<2:
             if kind == 1:
                 cummulate += self.invincible_prob_S * multiplier
-                
-        if (line < cummulate):
-            only_appear[2] += 1
+                    
+            if (line < cummulate):
+                only_appear[2] += 1
         
         
     def getA(self, state_percent, kind, only_appear): 
@@ -315,7 +316,7 @@ class Prob:
         line = random.random()
         cummulate = 0
         
-        #決定機率倍率
+        #決定機率倍率 (移出哪些項目的機率)
         multiplier = 0
         if only_appear[0]>=1:
             if kind == 0:
@@ -362,22 +363,22 @@ class Prob:
             elif kind == 4:
                 cummulate += self.skill_shoe_speed_A * multiplier
                 
-        if (line < cummulate):
-            only_appear[0] += 1
-            return
+            if (line < cummulate):
+                only_appear[0] += 1
+                return
         
         #第二種限制
         if only_appear[1]<2:
             cummulate += self.ingore_damage_A[kind] * multiplier
                 
-        if (line < cummulate):
-            only_appear[1] += 1
-            return
+            if (line < cummulate):
+                only_appear[1] += 1
+                return
         
         #第三種限制
         if only_appear[2]<2:
             if kind == 1:
                 cummulate += self.invincible_prob_A * multiplier
                 
-        if (line < cummulate):
-            only_appear[2] = only_appear[2]+1
+            if (line < cummulate):
+                only_appear[2] = only_appear[2]+1

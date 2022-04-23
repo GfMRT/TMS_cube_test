@@ -44,9 +44,9 @@ class RESULTS:
         
 
 class Prob:
-    def __init__(self, cube): # 0/1/2 = 閃炫、鏡射、對等
-        if(cube == 0):
-            # 閃炫
+    def __init__(self, cube): # 0/1/2 = 閃炫、鏡射、對等、閃耀
+        if(cube == 0 or cube == 3):
+            # 閃炫閃耀機率一樣
             self.attack_A = 0.0652
             self.ingore_A = 0.087
             self.B30_A = 0.0652  
